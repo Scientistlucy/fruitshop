@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dickson's Garden of Eden - Fresh Fruits</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-green: #27ae60;
+            --secondary-green: #2ecc71;
+            --accent-green: #229954;
+            --light-bg: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Header Styles */
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-green) !important;
+        }
+        
+        .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-green) !important;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-green);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519817914152-22d216bb9170?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        
+        .hero-content {
+            background-color: rgba(39, 174, 96, 0.85);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        /* Section Styles */
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-green);
+        }
+        
+        /* Product Cards */
+        .product-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.2);
+        }
+        
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--primary-green);
+            font-size: 1.2rem;
+        }
+        
+        /* Features */
+        .feature-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .feature-box:hover {
+            background-color: var(--light-bg);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--light-bg);
+            font-family: Georgia, serif;
+        }
+        
+        .rating {
+            color: #ffc107;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: var(--secondary-green);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-green);
+            transform: translateY(-3px);
+        }
+        
+        .payment-methods {
+            font-size: 1.5rem;
+            color: #ccc;
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Page Specific Styles */
+        .page-section {
+            padding: 80px 0;
+        }
+        
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        
+        .checkout-form {
+            background-color: var(--light-bg);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-green);
+            border-color: var(--secondary-green);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 60vh;
+            }
+            
+            .hero-content {
+                padding: 1.5rem;
+            }
+            
+            .section-title:after {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-apple-alt me-2"></i>Dickson's Garden of Eden
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#shop">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex">
+                    <div class="input-group me-3">
+                        <input type="text" class="form-control" placeholder="Search fruits...">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="position-relative me-3">
+                        <a href="#cart" class="btn btn-outline-primary">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                        <span class="cart-count">3</span>
+                    </div>
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> Account
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Login</a></li>
+                            <li><a class="dropdown-item" href="#">Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page-section">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 text-center">
+                            <div class="hero-content">
+                                <h1 class="display-4 fw-bold mb-4">Fresh, Juicy, and Straight from Nature</h1>
+                                <p class="lead mb-4">Experience the taste of pure freshness with our premium selection of fruits, directly from local farms to your table.</p>
+                                <a href="#shop" class="btn btn-light btn-lg px-5 py-3">Shop Now <i class="fas fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Products -->
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-title">Featured Products</h2>
+                        <p class="text-muted">Our most popular fresh fruits</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- Product 1 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/bananas.jpg" class="card-img-top product-img" alt="Fresh Bananas">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Sweet Bananas</h5>
+                                <p class="card-text text-muted">Ripe and nutritious bananas from local farms</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 150/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Bananas" data-price="150">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+<img src="images/Mango.jpg"  class="card-img-top product-img" alt="Ripe Mangoes">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Ripe Mangoes</h5>
+                                <p class="card-text text-muted">Juicy and sweet mangoes, perfect for summer</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 350/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Mangoes" data-price="350">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                      <img src="images/Pineapple.jpg"class="card-img-top product-img" alt="Fresh Pineapples">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Fresh Pineapples</h5>
+                                <p class="card-text text-muted">Sweet and tangy pineapples, rich in vitamin C</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 450/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Pineapples" data-price="450">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/apples.jpg" class="card-img-top product-img" alt="Juicy Apples">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Juicy Apples</h5>
+                                <p class="card-text text-muted">Crisp and refreshing red apples from local orchards</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 250/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Apples" data-price="250">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 5 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+  <img src="images/orange.jpg" class="card-img-top product-img" alt="Navel Oranges">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Oranges</h5>
+                                <p class="card-text text-muted">Vitamin C rich oranges, juicy and seedless</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 200/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Oranges" data-price="200">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 6 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/watermelons.jpg" class="card-img-top product-img" alt="Seedless Watermelons">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Seedless Watermelons</h5>
+                                <p class="card-text text-muted">Refreshing watermelons, perfect for hot days</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 500/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Watermelons" data-price="500">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 7 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+  <img src="images/Papaya.jpg" class="card-img-top product-img" alt="Ripe Pawpaw">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Ripe Pawpaw</h5>
+                                <p class="card-text text-muted">Sweet and creamy papaya, rich in vitamins</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 300/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Pawpaw" data-price="300">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 8 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+ <img src="images/Avocado.jpg" class="card-img-top product-img" alt="Fresh Avocados">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Fresh Avocados</h5>
+                                <p class="card-text text-muted">Creamy and nutritious, perfect for salads</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 180/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Avocados" data-price="180">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="container my-5 bg-light py-5 rounded">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-title">Why Choose Us</h2>
+                        <p class="text-muted">We're committed to delivering the best fruit experience</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4>Fresh from Farms</h4>
+                            <p>We source directly from local farmers to ensure maximum freshness and quality.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h4>Same-day Delivery</h4>
+                            <p>Get your fresh fruits delivered to your doorstep within Nairobi the same day.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="feature-box">
+                            <div class="feature-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <h4>Eco-friendly Packaging</h4>
+                            <p>We use sustainable packaging materials to protect our environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Reviews -->
+            <div class="container my-5">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-title">Customer Reviews</h2>
+                        <p class="text-muted">What our customers say about us</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="rating mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>The mangoes I ordered were the best I've ever tasted! So fresh and juicy. Will definitely order again.</p>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-muted"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Sarah Johnson</h6>
+                                    <small class="text-muted">Regular Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="rating mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p>Fast delivery and the fruits arrived in perfect condition. The watermelon was amazing!</p>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-muted"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Michael Kimani</h6>
+                                    <small class="text-muted">First-time Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="rating mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>Great service and quality fruits. The eco-friendly packaging is a nice touch. Highly recommended!</p>
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-muted"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Grace Wanjiru</h6>
+                                    <small class="text-muted">Loyal Customer</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Page -->
+        <section id="shop" class="page-section" style="display: none;">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="section-title">Our Fruit Collection</h2>
+                        <p>Browse our wide selection of fresh fruits</p>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <select class="form-select">
+                            <option selected>Sort by: Featured</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Name: A to Z</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select">
+                            <option selected>All Categories</option>
+                            <option>Tropical</option>
+                            <option>Local</option>
+                            <option>Imported</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search fruits...">
+                            <button class="btn btn-outline-secondary" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="row">
+                    <!-- Product 1 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/bananas.jpg" class="card-img-top product-img" alt="Fresh Bananas">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Sweet Bananas</h5>
+                                <p class="card-text text-muted small">Ripe and nutritious</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 150/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Bananas" data-price="150">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/Mango.jpg" class="card-img-top product-img" alt="Ripe Mangoes">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Ripe Mangoes</h5>
+                                <p class="card-text text-muted small">Juicy and sweet</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 350/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Mangoes" data-price="350">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="https://images.unsplash.com/photo-1577185322439848651-0f4b4a09e0f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top product-img" alt="Fresh Pineapples">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Fresh Pineapples</h5>
+                                <p class="card-text text-muted small">Sweet and tangy</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 450/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Pineapples" data-price="450">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/apples.jpg" class="card-img-top product-img" alt="Juicy Apples">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Juicy Apples</h5>
+                                <p class="card-text text-muted small">Crisp and refreshing</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 250/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Apples" data-price="250">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 5 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                     <img src="images/orange.jpg"class="card-img-top product-img" alt="Navel Oranges">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Oranges</h5>
+                                <p class="card-text text-muted small">Vitamin C rich</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 200/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Oranges" data-price="200">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 6 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/watermelons.jpg"class="card-img-top product-img" alt="Seedless Watermelons">
+                             <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"> Watermelons</h5>
+                                <p class="card-text text-muted small">Refreshing and sweet</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 500/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Watermelons" data-price="500">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 7 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+   <img src="images/Papaya.jpg"class="card-img-top product-img" alt="Ripe Pawpaw">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Ripe Pawpaw</h5>
+                                <p class="card-text text-muted small">Sweet and creamy</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 300/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Pawpaw" data-price="300">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 8 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                           <img src="images/Avocado.jpg" class="card-img-top product-img" alt="Fresh Avocados">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Fresh Avocados</h5>
+                                <p class="card-text text-muted small">Creamy and nutritious</p>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 180/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Avocados" data-price="180">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Details Page -->
+        <section id="product-details" class="page-section" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#home">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#shop">Shop</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <!-- Product Images -->
+                    <div class="col-lg-6 mb-4">
+                        <img src="https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Alphonso Mangoes">
+                    </div>
+                    
+                    <!-- Product Info -->
+                    <div class="col-lg-6">
+                        <h2>Alphonso Mangoes</h2>
+                        <div class="product-price fs-3 mb-3">KES 350/kg</div>
+                        
+                        <div class="rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="ms-2">(12 reviews)</span>
+                        </div>
+                        
+                        <p class="lead">Experience the royal taste of Alphonso mangoes, known for their rich flavor and golden-yellow color. These premium mangoes are harvested at peak ripeness and delivered straight to your doorstep.</p>
+                        
+                        <p>Our Alphonso mangoes are sourced directly from the best farms in Kenya, ensuring maximum freshness and quality. They are rich in vitamins A and C, and are perfect for enjoying fresh or using in smoothies and desserts.</p>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Quantity:</label>
+                            <div class="input-group" style="width: 150px;">
+                                <button class="btn btn-outline-secondary" type="button" id="decrease-qty">-</button>
+                                <input type="number" class="form-control text-center" value="1" min="1" id="product-qty">
+                                <button class="btn btn-outline-secondary" type="button" id="increase-qty">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <button class="btn btn-primary btn-lg add-to-cart" data-product="Alphonso Mangoes" data-price="350">
+                                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                            </button>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="fas fa-truck me-2"></i><strong>Delivery Info:</strong> Same-day delivery available within Nairobi. Order before 2 PM for same-day delivery.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Related Products -->
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h4 class="mb-4">Related Products</h4>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="https://images.unsplash.com/photo-1571771842101-70be0c03d255?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top product-img" alt="Fresh Bananas">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Sweet Bananas</h5>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 150/kg</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Bananas" data-price="150">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+  <img src="images/Pineapple.jpg" class="card-img-top product-img" alt="Fresh Pineapples">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Fresh Pineapples</h5>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 450/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Pineapples" data-price="450">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-3">
+                        <div class="product-card card h-100">
+                            <img src="images/watermelons.jpg" class="card-img-top product-img" alt="Seedless Watermelons">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Seedless Watermelons</h5>
+                                <div class="mt-auto">
+                                    <div class="product-price mb-2">KES 500/each</div>
+                                    <button class="btn btn-primary w-100 add-to-cart" data-product="Watermelons" data-price="500">
+                                        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shopping Cart Page -->
+        <section id="cart" class="page-section" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h2 class="section-title">Your Shopping Cart</h2>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Cart Items -->
+                        <div class="cart-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <img src="images/bananas.jpg" class="img-fluid rounded" alt="Bananas">
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Organic Bananas</h5>
+                                    <p class="text-muted mb-0">1 kg</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="product-price">KES 150</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" value="2" min="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <div class="product-price mb-2">KES 300</div>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                         <img src="images/Mango.jpg"class="img-fluid rounded" alt="Mangoes">
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Mangoes</h5>
+                                    <p class="text-muted mb-0">1 kg</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="product-price">KES 350</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" value="1" min="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <div class="product-price mb-2">KES 350</div>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                        <img src="images/Pineapple.jpg"class="img-fluid rounded" alt="Pineapples">
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Pineapples</h5>
+                                    <p class="text-muted mb-0">1 piece</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="product-price">KES 450</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" value="1" min="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <div class="product-price mb-2">KES 450</div>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="#shop" class="btn btn-outline-primary"><i class="fas fa-arrow-left me-2"></i>Continue Shopping</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Order Summary</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Subtotal</span>
+                                        <span>KES 1,100</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Delivery</span>
+                                        <span>KES 150</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Tax</span>
+                                        <span>KES 110</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between fw-bold">
+                                        <span>Total</span>
+                                        <span>KES 1,360</span>
+                                    </li>
+                                </ul>
+                                <a href="#checkout" class="btn btn-primary w-100 btn-lg">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout Page -->
+        <section id="checkout" class="page-section" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h2 class="section-title">Checkout</h2>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="checkout-form">
+                            <h4 class="mb-4">Delivery Information</h4>
+                            
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="John Doe" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" placeholder="0712 345 678" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" placeholder="john@example.com" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Delivery Address</label>
+                                    <textarea class="form-control" rows="3" placeholder="Enter your full address including street, building, floor, etc." required></textarea>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">City</label>
+                                        <input type="text" class="form-control" value="Nairobi" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Postal Code</label>
+                                        <input type="text" class="form-control" placeholder="00100">
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-4">
+                                
+                                <h4 class="mb-4">Delivery Options</h4>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="delivery" id="delivery1" checked>
+                                        <label class="form-check-label" for="delivery1">
+                                            Same-day Delivery (KES 150)
+                                            <small class="d-block text-muted">Delivered within Nairobi the same day (Order before 2 PM)</small>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="delivery" id="delivery2">
+                                        <label class="form-check-label" for="delivery2">
+                                            Standard Delivery (KES 100)
+                                            <small class="d-block text-muted">Delivered within 2-3 business days</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-4">
+                                
+                                <h4 class="mb-4">Payment Method</h4>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="payment" id="payment1" checked>
+                                        <label class="form-check-label" for="payment1">
+                                            M-Pesa
+                                            <small class="d-block text-muted">Pay via M-Pesa after placing your order</small>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment" id="payment2">
+                                        <label class="form-check-label" for="payment2">
+                                            Cash on Delivery
+                                            <small class="d-block text-muted">Pay in cash when your order is delivered</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Your Order</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Organic Bananas (2kg)</span>
+                                        <span>KES 300</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span> Mangoes (1kg)</span>
+                                        <span>KES 350</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Pineapples (1 piece)</span>
+                                        <span>KES 450</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <span>Delivery</span>
+                                        <span>KES 150</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between fw-bold">
+                                        <span>Total</span>
+                                        <span>KES 1,250</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-primary w-100 btn-lg" onclick="placeOrder()">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about" class="page-section" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mb-5">
+                        <h2 class="section-title">About Dickson's Garden of Eden</h2>
+                        <p class="lead">Bringing the freshest fruits directly from Kenyan farms to your table</p>
+                    </div>
+                </div>
+                
+                <div class="row mb-5">
+                    <div class="col-lg-6 mb-4">
+                        <h3>Our Story</h3>
+                        <p>Dickson's Garden of Eden was founded in 2015 by Dickson Mwangi, a passionate fruit farmer from Kiambu County. What started as a small family farm has grown into a trusted name for fresh, high-quality fruits across Nairobi and beyond.</p>
+                        <p>Dickson's vision was simple: to provide families with access to the freshest, most nutritious fruits while supporting local farmers. Today, we work directly with over 50 small-scale farmers across Kenya to bring you the best seasonal fruits.</p>
+                        <p>Our commitment to quality, sustainability, and community has made us the preferred choice for thousands of customers who value fresh, healthy eating.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1594489573454-3ca2078e5c7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Our Farm">
+                    </div>
+                </div>
+                
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h3 class="mb-4">Our Mission & Values</h3>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <div class="feature-icon mb-3">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <h5>Freshness</h5>
+                                <p class="text-muted">We guarantee the highest level of freshness by sourcing directly from farms and delivering within 24 hours of harvest.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <div class="feature-icon mb-3">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <h5>Trust</h5>
+                                <p class="text-muted">We build lasting relationships with our customers based on transparency, quality, and exceptional service.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <div class="feature-icon mb-3">
+                                    <i class="fas fa-apple-alt"></i>
+                                </div>
+                                <h5>Quality</h5>
+                                <p class="text-muted">We maintain strict quality standards, ensuring every fruit meets our high expectations before reaching your table.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mb-4">Meet Our Founder</h3>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="Dickson Mwangi">
+                            <div class="card-body text-center">
+                                <h5>Dickson Mwangi</h5>
+                                <p class="text-muted mb-0">Founder & CEO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <p>Dickson Mwangi grew up on a small farm in Kiambu County, where his family cultivated various fruits and vegetables. His passion for agriculture began at an early age, helping his parents tend to their crops.</p>
+                        <p>After completing his studies in Agricultural Science at the University of Nairobi, Dickson worked with several agricultural cooperatives before starting his own venture. His vision was to create a bridge between local farmers and urban consumers, ensuring farmers get fair prices while consumers enjoy the freshest produce.</p>
+                        <p>Under his leadership, Dickson's Garden of Eden has become a model for sustainable agriculture and ethical business practices. He continues to innovate in farming techniques and distribution methods to deliver the best possible experience to customers.</p>
+                        <blockquote class="fst-italic">
+                            <p>"Our mission is not just to sell fruits, but to promote healthy living and support our local farming communities. Every fruit we deliver carries the story of a farmer's dedication and the richness of Kenyan soil."</p>
+                            <footer class="blockquote-footer mt-2">Dickson Mwangi</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page-section" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mb-5">
+                        <h2 class="section-title">Contact Us</h2>
+                        <p class="lead">Get in touch with us for any inquiries or orders</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 mb-5">
+                        <h4 class="mb-4">Send us a Message</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Your Name</label>
+                                <input type="text" class="form-control" placeholder="John Doe">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" placeholder="john@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Subject</label>
+                                <input type="text" class="form-control" placeholder="How can we help?">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" rows="5" placeholder="Your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <h4 class="mb-4">Get in Touch</h4>
+                        
+                        <div class="mb-4">
+                            <h5><i class="fas fa-phone-alt me-2 text-primary"></i> Phone</h5>
+                            <p class="ms-4">+254 712 345 678<br>+254 723 456 789</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5><i class="fab fa-whatsapp me-2 text-success"></i> WhatsApp</h5>
+                            <p class="ms-4">+254 712 345 678</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5><i class="fas fa-envelope me-2 text-danger"></i> Email</h5>
+                            <p class="ms-4">info@gardenofeden.co.ke<br>orders@gardenofeden.co.ke</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5><i class="fas fa-map-marker-alt me-2 text-primary"></i> Address</h5>
+                            <p class="ms-4">Dickson's Garden of Eden<br>123 Farm Road, Kiambu<br>Nairobi, Kenya</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5><i class="fas fa-clock me-2 text-warning"></i> Business Hours</h5>
+                            <p class="ms-4">Monday - Saturday: 8:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</p>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3">Follow Us</h5>
+                        <div class="d-flex">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h4 class="mb-4">Our Location</h4>
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255282.35565055557!2d36.70730326249998!3d-1.3047224999999917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2ske!4v1656451234567!5m2!1sen!2ske" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-apple-alt me-2"></i>Dickson's Garden of Eden</h5>
+                    <p>Bringing you the freshest fruits directly from Kenyan farms to your table. Quality, freshness, and sustainability in every bite.</p>
+                    <div class="d-flex">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Farm Road, Kiambu</li>
+                        <li><i class="fas fa-phone-alt me-2"></i> +254 712 345 678</li>
+                        <li><i class="fab fa-whatsapp me-2"></i> +254 712 345 678</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@gardenofeden.co.ke</li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Payment Methods</h5>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-mastercard me-2"></i>
+                        <i class="fab fa-cc-visa me-2"></i>
+                        <i class="fab fa-cc-amex me-2"></i>
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <p class="mt-3">We accept M-Pesa and Cash on Delivery</p>
+                </div>
+            </div>
+            
+            <div class="row copyright">
+                <div class="col-12 text-center">
+                    <p>&copy; 2023 Dickson's Garden of Eden. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Page Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show home page by default
+            showPage('home');
+            
+            // Navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('href').substring(1);
+                    showPage(page);
+                });
+            });
+            
+            // Add to cart functionality
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const product = this.getAttribute('data-product');
+                    const price = this.getAttribute('data-price');
+                    alert(`Added ${product} to cart! Price: KES ${price}`);
+                    // Update cart count (in a real app, this would be more sophisticated)
+                    const cartCount = document.querySelector('.cart-count');
+                    cartCount.textContent = parseInt(cartCount.textContent) + 1;
+                });
+            });
+            
+            // Quantity buttons on product details page
+            const qtyInput = document.getElementById('product-qty');
+            if (qtyInput) {
+                document.getElementById('increase-qty').addEventListener('click', function() {
+                    qtyInput.value = parseInt(qtyInput.value) + 1;
+                });
+                
+                document.getElementById('decrease-qty').addEventListener('click', function() {
+                    if (parseInt(qtyInput.value) > 1) {
+                        qtyInput.value = parseInt(qtyInput.value) - 1;
+                    }
+                });
+            }
+        });
+        
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show requested page
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            if (document.querySelector(`a[href="#${pageId}"]`)) {
+                document.querySelector(`a[href="#${pageId}"]`).classList.add('active');
+            }
+        }
+        
+        function placeOrder() {
+            alert('Thank you for your order! We will contact you shortly to confirm delivery details.');
+            showPage('home');
+        }
+    </script>
+</body>
+</html>
